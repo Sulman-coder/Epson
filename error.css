@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef0f3;
+    color: #171717;
+}
+
+.error-page {
+    width: min(100%, 810px);
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.error-header {
+    min-height: 84px;
+    padding: 20px 32px;
+    background: #f5f6f7;
+    border-bottom: 1px solid #d0d0d0;
+
+    display: flex;
+    align-items: center;
+}
+
+.error-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.error-header p {
+    font-size: 19px;
+    color: #222;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.error-content {
+    min-height: 530px;
+    padding: 35px 45px 55px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* =========================================
+   PRINTER ERROR ICON
+========================================= */
+
+.printer-error-icon {
+    position: relative;
+    width: 125px;
+    height: 105px;
+    margin-bottom: 22px;
+}
+
+.printer-body {
+    position: absolute;
+    left: 15px;
+    top: 22px;
+
+    width: 95px;
+    height: 58px;
+
+    border: 2px solid #222;
+    border-radius: 7px;
+
+    background: #ffffff;
+}
+
+.printer-body::before {
+    content: "";
+    position: absolute;
+
+    left: 15px;
+    top: -25px;
+
+    width: 62px;
+    height: 29px;
+
+    background: #ffffff;
+    border: 2px solid #222;
+    border-bottom: none;
+}
+
+.paper {
+    position: absolute;
+
+    left: 25px;
+    top: -13px;
+
+    width: 45px;
+    height: 20px;
+
+    background: #ffffff;
+}
+
+.printer-body span {
+    position: absolute;
+
+    left: 39px;
+    top: 18px;
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.error-circle {
+    position: absolute;
+
+    width: 82px;
+    height: 82px;
+
+    left: 23px;
+    top: 10px;
+
+    border: 8px solid #e31b23;
+    border-radius: 50%;
+}
+
+.error-circle::after {
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 78px;
+
+    left: 29px;
+    top: -6px;
+
+    background: #e31b23;
+
+    transform: rotate(45deg);
+}
+
+
+/* =========================================
+   TEXT
+========================================= */
+
+.error-content h2 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin-bottom: 18px;
+}
+
+.main-message {
+    max-width: 620px;
+
+    font-size: 18px;
+    line-height: 1.6;
+
+    margin-bottom: 16px;
+}
+
+.support-message {
+    font-size: 18px;
+    line-height: 1.6;
+
+    margin-bottom: 12px;
+}
+
+.support-number {
+    margin-top: 4px;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.support-number a {
+    color: #111;
+    text-decoration: none;
+}
+
+.support-number a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.error-actions {
+    margin-top: 28px;
+}
+
+.error-actions button {
+    border: none;
+
+    background: #10218b;
+    color: #ffffff;
+
+    padding: 13px 32px;
+
+    border-radius: 5px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.error-actions button:hover {
+    background: #0b1768;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   FOOTER / BLUE DIAGONAL
+========================================= */
+
+.error-footer {
+    position: relative;
+
+    height: 108px;
+
+    background: #0646b8;
+
+    margin-top: 0;
+}
+
+.error-footer::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: -55px;
+
+    width: 100%;
+    height: 80px;
+
+    background: #ffffff;
+
+    clip-path: polygon(0 0, 100% 70%, 100% 100%, 0 30%);
+}
+
+.footer-brand {
+    position: absolute;
+
+    left: 35px;
+    bottom: 10px;
+
+    color: #ffffff;
+
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .error-page {
+        width: 100%;
+    }
+
+    .error-header {
+        padding: 18px 20px;
+    }
+
+    .error-header h1 {
+        font-size: 24px;
+    }
+
+    .error-header p {
+        font-size: 16px;
+    }
+
+    .error-content {
+        min-height: auto;
+        padding: 35px 20px 50px;
+    }
+
+    .error-content h2 {
+        font-size: 24px;
+    }
+
+    .main-message,
+    .support-message {
+        font-size: 16px;
+    }
+
+    .support-number {
+        font-size: 18px;
+    }
+
+    .error-footer {
+        height: 100px;
+    }
+
+    .footer-brand {
+        left: 20px;
+        font-size: 38px;
+    }
+}

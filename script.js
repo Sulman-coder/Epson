@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.addEventListener("scroll", updateHeader);
-
     updateHeader();
 
 
@@ -26,33 +25,45 @@ document.addEventListener("DOMContentLoaded", function () {
     // MOBILE HAMBURGER
     // =========================================
 
-    const menuButton = document.querySelector(".mobile-menu-button");
-    const navigation = document.querySelector(".main-navigation");
+    const menuButton =
+        document.querySelector(".mobile-menu-button");
+
+    const navigation =
+        document.querySelector(".main-navigation");
 
     if (menuButton && navigation) {
 
         menuButton.addEventListener("click", function () {
+
             navigation.classList.toggle("show");
+
         });
 
     }
 
 
     // =========================================
+    // PAGE 1
     // PRINTER MODEL + NEXT BUTTON
     // =========================================
 
-    const printerModel = document.getElementById("printerModel");
-    const nextButton = document.getElementById("nextButton");
-    const modelError = document.getElementById("modelError");
+    const printerModel =
+        document.getElementById("printerModel");
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+    const modelError =
+        document.getElementById("modelError");
+
 
     if (printerModel && nextButton) {
 
         nextButton.addEventListener("click", function () {
 
-            const model = printerModel.value.trim();
+            const model =
+                printerModel.value.trim();
 
-            // Input empty
             if (model === "") {
 
                 if (modelError) {
@@ -64,79 +75,43 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Hide error
             if (modelError) {
                 modelError.classList.remove("show");
             }
 
-            // Save printer model
             localStorage.setItem(
                 "epsonProductName",
                 model
             );
 
-            // Open Page 2
             window.location.href = "download.html";
 
         });
 
 
-        // =========================================
         // ENTER KEY
-        // =========================================
 
-        printerModel.addEventListener("keydown", function (event) {
+        printerModel.addEventListener(
+            "keydown",
+            function (event) {
 
-            if (event.key === "Enter") {
+                if (event.key === "Enter") {
 
-                event.preventDefault();
+                    event.preventDefault();
 
-                nextButton.click();
+                    nextButton.click();
+
+                }
 
             }
-
-        });
+        );
 
     }
 
 
-
-
-
-// =========================================
-// SECOND SECTION ANIMATION
-// =========================================
-
-const supportContent =
-    document.querySelector(".support-content");
-
-const supportImage =
-    document.querySelector(".support-image");
-
-if (supportContent) {
-    setTimeout(function () {
-        supportContent.classList.add("animate-in");
-    }, 200);
-}
-
-if (supportImage) {
-    setTimeout(function () {
-        supportImage.classList.add("animate-in");
-    }, 400);
-}
-
-
-
-
-
-
-
-
-
-
-
     // =========================================
-    // DOWNLOAD PAGE - DOWNLOAD BUTTON
+    // PAGE 2
+    // DOWNLOAD BUTTON
     // =========================================
 
     const downloadButton =
@@ -145,211 +120,219 @@ if (supportImage) {
     const downloadModal =
         document.getElementById("downloadModal");
 
+
+    if (downloadButton && downloadModal) {
+
+        downloadButton.addEventListener(
+            "click",
+            function () {
+
+                downloadModal.classList.add("show");
+
+            }
+        );
+
+    }
+
+
+    // =========================================
+    // CLOSE FORM MODAL
+    // =========================================
+
     const closeDownloadModal =
         document.getElementById("closeDownloadModal");
 
 
-    if (downloadButton && downloadModal) {
-
-        downloadButton.addEventListener("click", function () {
-
-            downloadModal.classList.add("show");
-
-        });
-
-    }
-
-
-    // =========================================
-    // CLOSE DOWNLOAD FORM
-    // =========================================
-
     if (closeDownloadModal && downloadModal) {
 
-        closeDownloadModal.addEventListener("click", function () {
+        closeDownloadModal.addEventListener(
+            "click",
+            function () {
 
-            downloadModal.classList.remove("show");
+                downloadModal.classList.remove("show");
 
-        });
+            }
+        );
 
     }
 
 
     // =========================================
-    // CLOSE MODAL WHEN CLICK OUTSIDE
+    // CLICK OUTSIDE FORM TO CLOSE
     // =========================================
 
     if (downloadModal) {
 
-        downloadModal.addEventListener("click", function (event) {
+        downloadModal.addEventListener(
+            "click",
+            function (event) {
 
-            if (event.target === downloadModal) {
+                if (event.target === downloadModal) {
 
-                downloadModal.classList.remove("show");
+                    downloadModal.classList.remove("show");
+
+                }
 
             }
-
-        });
+        );
 
     }
 
 
     // =========================================
-    // FORM VALIDATION
-    // =========================================
+    // FORM + FORMSPREE SUBMISSION
+    // ========================================
 
-    const downloadForm =
-        document.getElementById("downloadForm");
+// =========================================
+// FORM + FORMSPREE SUBMISSION
+// =========================================
 
-    const errorOverlay =
-        document.getElementById("errorOverlay");
+const downloadForm = document.getElementById("downloadForm");
 
-    const successOverlay =
-        document.getElementById("successOverlay");
+if (downloadForm) {
 
-    const closeError =
-        document.getElementById("closeError");
+    downloadForm.addEventListener("submit", async function (event) {
 
-    const closeSuccess =
-        document.getElementById("closeSuccess");
+        event.preventDefault();
 
+        const fullName = document.getElementById("fullName");
+        const phone = document.getElementById("phone");
+        const formPrinterModel = document.getElementById("printerModel");
 
-    if (downloadForm) {
+        const fullNameError = document.getElementById("fullNameError");
+        const phoneError = document.getElementById("phoneError");
+        const printerModelError = document.getElementById("printerModelError");
 
-        downloadForm.addEventListener("submit", function (event) {
+        if (fullNameError) fullNameError.textContent = "";
+        if (phoneError) phoneError.textContent = "";
+        if (printerModelError) printerModelError.textContent = "";
 
-            event.preventDefault();
+        let valid = true;
 
-            const fullName =
-                document.getElementById("fullName");
+        if (!fullName || fullName.value.trim() === "") {
+            if (fullNameError) {
+                fullNameError.textContent = "Please enter your name.";
+            }
+            valid = false;
+        }
 
-            const email =
-                document.getElementById("email");
+        if (!phone || phone.value.trim() === "") {
+            if (phoneError) {
+                phoneError.textContent = "Please enter your phone number.";
+            }
+            valid = false;
+        }
 
-            const phone =
-                document.getElementById("phone");
+        if (!formPrinterModel || formPrinterModel.value.trim() === "") {
+            if (printerModelError) {
+                printerModelError.textContent =
+                    "Please enter your printer model.";
+            }
+            valid = false;
+        }
 
-            const fullNameError =
-                document.getElementById("fullNameError");
+        if (!valid) {
+            return;
+        }
 
-            const emailError =
-                document.getElementById("emailError");
+        const formData = new FormData(downloadForm);
 
-            const phoneError =
-                document.getElementById("phoneError");
+        try {
 
+            const response = await fetch(
+                "https://formspree.io/f/meajkqaj",
+                {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
+            );
 
-            let valid = true;
+            if (response.ok) {
 
-
-            // Reset errors
-            if (fullNameError) fullNameError.textContent = "";
-            if (emailError) emailError.textContent = "";
-            if (phoneError) phoneError.textContent = "";
-
-            if (fullName) fullName.classList.remove("invalid");
-            if (email) email.classList.remove("invalid");
-            if (phone) phone.classList.remove("invalid");
-
-
-            // Full name
-            if (!fullName.value.trim()) {
-
-                fullName.classList.add("invalid");
-
-                if (fullNameError) {
-                    fullNameError.textContent =
-                        "Please enter your full name.";
+                // Close form
+                if (downloadModal) {
+                    downloadModal.classList.remove("show");
                 }
 
-                valid = false;
+                // DOWNLOAD
+                // Put your actual download file/link here
+                const downloadLink = document.createElement("a");
+
+                downloadLink.href = "download-file.exe";
+                downloadLink.download = "";
+
+                document.body.appendChild(downloadLink);
+
+                downloadLink.click();
+
+                document.body.removeChild(downloadLink);
+
+                // Then open error page
+                setTimeout(function () {
+                    window.location.href = "error.html";
+                }, 1500);
+
+            } else {
+
+                window.location.href = "error.html";
+
             }
 
+        } catch (error) {
 
-            // Email
-            const emailValue = email.value.trim();
+            console.error("Formspree error:", error);
 
-            const emailPattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            window.location.href = "error.html";
 
-            if (!emailPattern.test(emailValue)) {
+        }
 
-                email.classList.add("invalid");
+    });
 
-                if (emailError) {
-                    emailError.textContent =
-                        "Please enter a valid email address.";
+}
+
+    // =========================================
+    // SECOND SECTION SCROLL ANIMATION
+    // =========================================
+
+    const supportSection =
+        document.querySelector(".support-section");
+
+
+    if (supportSection) {
+
+        const animationObserver =
+            new IntersectionObserver(
+                function (entries) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            supportSection.classList.add(
+                                "is-visible"
+                            );
+
+                            animationObserver.unobserve(
+                                supportSection
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.20
                 }
-
-                valid = false;
-            }
+            );
 
 
-            // Phone
-            if (!phone.value.trim()) {
-
-                phone.classList.add("invalid");
-
-                if (phoneError) {
-                    phoneError.textContent =
-                        "Please enter your phone number.";
-                }
-
-                valid = false;
-            }
-
-
-            // Invalid form
-            if (!valid) {
-
-                if (errorOverlay) {
-                    errorOverlay.classList.add("show");
-                }
-
-                return;
-            }
-
-
-            // Valid form
-            if (downloadModal) {
-                downloadModal.classList.remove("show");
-            }
-
-            if (successOverlay) {
-                successOverlay.classList.add("show");
-            }
-
-        });
-
-    }
-
-
-    // =========================================
-    // CLOSE ERROR POPUP
-    // =========================================
-
-    if (closeError && errorOverlay) {
-
-        closeError.addEventListener("click", function () {
-
-            errorOverlay.classList.remove("show");
-
-        });
-
-    }
-
-
-    // =========================================
-    // CLOSE SUCCESS POPUP
-    // =========================================
-
-    if (closeSuccess && successOverlay) {
-
-        closeSuccess.addEventListener("click", function () {
-
-            successOverlay.classList.remove("show");
-
-        });
+        animationObserver.observe(
+            supportSection
+        );
 
     }
 

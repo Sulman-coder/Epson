@@ -561,34 +561,6 @@ button {
 }
 
 
-/* =========================================================
-   ANIMATION CLASSES
-   JS will add these when section enters viewport
-========================================================= */
-
-.support-content.animate-start {
-    opacity: 0;
-
-    transform: translateX(-70px);
-}
-
-.support-image.animate-start {
-    opacity: 0;
-
-    transform: translateX(70px);
-}
-
-.support-content.animate-in {
-    opacity: 1;
-
-    transform: translateX(0);
-}
-
-.support-image.animate-in {
-    opacity: 1;
-
-    transform: translateX(0);
-}
 
 
 /* =========================================================
@@ -999,27 +971,25 @@ button {
 .support-content {
     opacity: 0;
     transform: translateX(-70px);
-    transition: opacity 1s ease, transform 1s ease;
+    transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 .support-image {
     opacity: 0;
     transform: translateX(70px);
-    transition: opacity 1s ease, transform 1s ease;
+    transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
-/* Animation active */
-
-.support-content.animate-in {
+.support-section.is-visible .support-content {
     opacity: 1;
     transform: translateX(0);
 }
 
-.support-image.animate-in {
+.support-section.is-visible .support-image {
     opacity: 1;
     transform: translateX(0);
+    transition-delay: 0.2s;
 }
-
 
 /* =========================================================
    TABLET
