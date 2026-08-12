@@ -38,13 +38,10 @@
                   
             <div class="phone-number">
 
-                <i class="fa-solid fa-phone"></i>
-
-                <span>Call Now:</span>
-
-                <a href="tel:+18447151235">
-                    +1 (844) 715-1235
-                </a>
+                    
+     <a href="javascript:void(0)" onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'});">
+    Contact us
+</a>
 
             </div>
                 
@@ -100,19 +97,14 @@
              FOOTER     
     ========================================== -->
 
-    <footer class="site-footer">
+    <footer class="site-footer" id="footer">
         <div class="container footer-container">
             <p> © Copyright 2025 - Printer Device Setup. All Rights Reserved. </p>
                   <div class="footer-phone">
+    <i class="fa-solid fa-envelope"></i>
 
-                <i class="fa-solid fa-phone"></i>
-            
+    <span>officedontshare@gmail.com</span>
 
-                <span>Call Now:</span>
-
-                <a href="tel:+18447151235">
-                    +1 (844) 715-1235
-                </a>
 
             </div>
         </div>
@@ -197,60 +189,15 @@
          ERROR POPUP
     ========================================== -->
 
-    <div class="error-overlay" id="errorOverlay">
 
-        <div class="error-popup">
 
-            <div class="error-icon">
-                !
-            </div>
-
-            <h2>
-                Please Check Your Details
-            </h2>
-
-            <p>
-                Please fill in all required fields
-                correctly before continuing.
-            </p>
-
-            <button type="button" id="closeError">
-                OK
-            </button>
-
-        </div>
-
+  <div class="processing-overlay" id="processingOverlay">
+    <div class="processing-box">
+        <div class="spinner"></div>
+        <h2>Processing your request...</h2>
+        <p>Please wait while we process your request.</p>
     </div>
-
-
-    <!-- =========================================
-         SUCCESS POPUP
-    ========================================== -->
-
-    <div class="success-overlay" id="successOverlay">
-
-        <div class="success-popup">
-
-            <div class="success-icon">
-                ✓
-            </div>
-
-            <h2>
-                Thank You
-            </h2>
-
-            <p>
-                Your information has been submitted
-                successfully.
-            </p>
-
-            <button type="button" id="closeSuccess">
-                OK
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 
     <!-- JAVASCRIPT -->

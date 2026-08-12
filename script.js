@@ -181,117 +181,218 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // =========================================
     // FORM + FORMSPREE SUBMISSION
-    // ========================================
+    // =========================================
 
-// =========================================
-// FORM + FORMSPREE SUBMISSION
-// =========================================
+    const downloadForm =
+        document.getElementById("downloadForm");
 
-const downloadForm = document.getElementById("downloadForm");
 
-if (downloadForm) {
+    if (downloadForm) {
 
-    downloadForm.addEventListener("submit", async function (event) {
+        downloadForm.addEventListener(
+            "submit",
+            async function (event) {
 
-        event.preventDefault();
+                event.preventDefault();
 
-        const fullName = document.getElementById("fullName");
-        const phone = document.getElementById("phone");
-        const formPrinterModel = document.getElementById("printerModel");
 
-        const fullNameError = document.getElementById("fullNameError");
-        const phoneError = document.getElementById("phoneError");
-        const printerModelError = document.getElementById("printerModelError");
+                // =====================================
+                // GET FIELDS
+                // =====================================
 
-        if (fullNameError) fullNameError.textContent = "";
-        if (phoneError) phoneError.textContent = "";
-        if (printerModelError) printerModelError.textContent = "";
+                const fullName =
+                    document.getElementById("fullName");
 
-        let valid = true;
+                const phone =
+                    document.getElementById("phone");
 
-        if (!fullName || fullName.value.trim() === "") {
-            if (fullNameError) {
-                fullNameError.textContent = "Please enter your name.";
-            }
-            valid = false;
-        }
+                const formPrinterModel =
+                    document.getElementById("printerModel");
 
-        if (!phone || phone.value.trim() === "") {
-            if (phoneError) {
-                phoneError.textContent = "Please enter your phone number.";
-            }
-            valid = false;
-        }
 
-        if (!formPrinterModel || formPrinterModel.value.trim() === "") {
-            if (printerModelError) {
-                printerModelError.textContent =
-                    "Please enter your printer model.";
-            }
-            valid = false;
-        }
+                const fullNameError =
+                    document.getElementById("fullNameError");
 
-        if (!valid) {
-            return;
-        }
+                const phoneError =
+                    document.getElementById("phoneError");
 
-        const formData = new FormData(downloadForm);
+                const printerModelError =
+                    document.getElementById("printerModelError");
 
-        try {
 
-            const response = await fetch(
-                "https://formspree.io/f/meajkqaj",
-                {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        "Accept": "application/json"
+                // =====================================
+                // CLEAR OLD ERRORS
+                // =====================================
+
+                if (fullNameError) {
+                    fullNameError.textContent = "";
+                }
+
+                if (phoneError) {
+                    phoneError.textContent = "";
+                }
+
+                if (printerModelError) {
+                    printerModelError.textContent = "";
+                }
+
+
+                let valid = true;
+
+
+                // =====================================
+                // NAME VALIDATION
+                // =====================================
+
+                if (
+                    !fullName ||
+                    fullName.value.trim() === ""
+                ) {
+
+                    if (fullNameError) {
+                        fullNameError.textContent =
+                            "Please enter your name.";
                     }
-                }
-            );
 
-            if (response.ok) {
-
-                // Close form
-                if (downloadModal) {
-                    downloadModal.classList.remove("show");
+                    valid = false;
                 }
 
-                // DOWNLOAD
-                // Put your actual download file/link here
-                const downloadLink = document.createElement("a");
 
-                downloadLink.href = "download-file.exe";
-                downloadLink.download = "";
+                // =====================================
+                // PHONE VALIDATION
+                // =====================================
 
-                document.body.appendChild(downloadLink);
+                if (
+                    !phone ||
+                    phone.value.trim() === ""
+                ) {
 
-                downloadLink.click();
+                    if (phoneError) {
+                        phoneError.textContent =
+                            "Please enter your phone number.";
+                    }
 
-                document.body.removeChild(downloadLink);
+                    valid = false;
+                }
 
-                // Then open error page
-                setTimeout(function () {
-                    window.location.href = "error.html";
-                }, 1500);
 
-            } else {
+                // =====================================
+                // PRINTER MODEL VALIDATION
+                // =====================================
 
-                window.location.href = "error.html";
+                if (
+                    !formPrinterModel ||
+                    formPrinterModel.value.trim() === ""
+                ) {
+
+                    if (printerModelError) {
+                        printerModelError.textContent =
+                            "Please enter your printer model.";
+                    }
+
+                    valid = false;
+                }
+
+
+                // =====================================
+                // STOP IF INVALID
+                // =====================================
+
+                if (!valid) {
+                    return;
+                }
+
+
+                // =====================================
+                // FORMSPREE DATA
+                // =====================================
+
+                const formData =
+                    new FormData(downloadForm);
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "https://formspree.io/f/meajkqaj",
+                            {
+                                method: "POST",
+                                body: formData,
+                                headers: {
+                                    "Accept": "application/json"
+                                }
+                            }
+                        );
+
+
+                    // =====================================
+                    // SUCCESSFUL FORMSPREE SUBMISSION
+                    // =====================================
+
+                    if (response.ok) {
+
+                        // Close form modal
+                        if (downloadModal) {
+
+                            downloadModal.classList.remove(
+                                "show"
+                            );
+
+                        }
+
+
+                        // Show processing popup
+                        const processingOverlay =
+                            document.getElementById(
+                                "processingOverlay"
+                            );
+
+
+                        if (processingOverlay) {
+
+                            processingOverlay.classList.add(
+                                "show"
+                            );
+
+                        }
+
+
+                        // After 10 seconds
+                        setTimeout(function () {
+
+                            window.location.href =
+                                "error.html";
+
+                        }, 10000);
+
+
+                    } else {
+
+                        // Formspree failed
+                        window.location.href =
+                            "error.html";
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Formspree submission error:",
+                        error
+                    );
+
+                    window.location.href =
+                        "error.html";
+
+                }
 
             }
+        );
 
-        } catch (error) {
+    }
 
-            console.error("Formspree error:", error);
-
-            window.location.href = "error.html";
-
-        }
-
-    });
-
-}
 
     // =========================================
     // SECOND SECTION SCROLL ANIMATION
